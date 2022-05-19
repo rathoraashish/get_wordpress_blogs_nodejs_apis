@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body {
+  font-family: Arial;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+form.search-blog input[type=text] {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid grey;
+  float: left;
+  width: 80%;
+  background: #f1f1f1;
+}
+
+form.search-blog button {
+  float: left;
+  width: 20%;
+  padding: 10px;
+  background: #2196F3;
+  color: white;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-left: none;
+  cursor: pointer;
+}
+
+form.search-blog button:hover {
+  background: #0b7dda;
+}
+
+form.search-blog::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+</style>
+</head>
+<body>
+<div style="text-align: center;">
+    <h2>Enter the website url</h2>
+</div>
+
+<!-- <p>Full width:</p>
+<form class="example" action="/action_page.php">
+  <input type="text" placeholder="Search.." name="search">
+  <button type="submit"><i class="fa fa-search"></i></button>
+</form> -->
+
+<form class="search-blog" action="" style="margin:auto;max-width:300px">
+  <input type="text" placeholder="Search.." name="search2" id="search2">
+  <button type="submit" class="btnSubmit"><i class="fa fa-search"></i></button>
+</form>
+</body>
+</html> 
+<script type="module">
+        document.querySelector('form').addEventListener('submit', async(e) => {
+            e.preventDefault();
+            var formData = new FormData(e.target)
+            var web_url = formData.get('search2')
+            // console.log(web_url);
+            // let id = document.getElementById('user_id').value;
+            // let name = document.getElementById('user_nicename').value;
+            const result = await fetch(`${web_url}/wp-json/wp/v2/posts?_embed`)
+            const mydata = await result.json();
+            console.log(mydata);
+        });
+    </script>
+</script>
