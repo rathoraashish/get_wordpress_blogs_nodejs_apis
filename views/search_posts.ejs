@@ -71,7 +71,7 @@ form.search-blog::after {
             fetch(`${web_url}/wp-json/wp/v2/posts?_embed`, { mode: 'cors'})
               .then(response => response.json())  
               .then(data => {
-                    console.log("This data is inside second fetch",data)
+                    // console.log("This data is inside second fetch",data)
                     fetch(`http://localhost:3000/getBlogs`, {
                         method: 'POST', // or 'PUT'
                         headers: {
