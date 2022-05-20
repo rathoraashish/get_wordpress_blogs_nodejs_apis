@@ -46,7 +46,7 @@ form.search-blog::after {
 </head>
 <body>
 <div style="text-align: center;">
-    <h2>Enter the website url</h2>
+    <h2>Enter the website url to get blogs!</h2>
 </div>
 
 <!-- <p>Full width:</p>
@@ -66,12 +66,35 @@ form.search-blog::after {
             e.preventDefault();
             var formData = new FormData(e.target)
             var web_url = formData.get('search2')
-            // console.log(web_url);
-            // let id = document.getElementById('user_id').value;
-            // let name = document.getElementById('user_nicename').value;
-            const result = await fetch(`${web_url}/wp-json/wp/v2/posts?_embed`)
-            const mydata = await result.json();
-            console.log(mydata);
+            console.log(web_url);
+            // const result = await fetch(`${web_url}/wp-json/wp/v2/posts?_embed`)
+            fetch(`${web_url}/wp-json/wp/v2/posts?_embed`, { mode: 'cors'})
+              .then(response => response.json())  
+              .then(data => {
+                    console.log("This data is inside second fetch",data)
+                    fetch(`http://localhost:3000/getBlogs`, {
+                        method: 'POST', // or 'PUT'
+                        headers: {
+                          'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(data),
+                      })
+                      .then(response => response.json())  
+                      .then(result => {
+                          console.log("Result:", result)
+                        })
+                      .catch(err => {
+                        console.log("second fetch error:",err);
+                        return err;
+                      });
+                // data.forEach(element => {
+                //   console.log(element.title.rendered)
+                //   return
+                // });
+              })
+              .catch(e => {
+                console.log(e);
+                return e;
+              });
         });
     </script>
-</script>

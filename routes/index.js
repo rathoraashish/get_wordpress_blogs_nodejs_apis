@@ -27,74 +27,24 @@ router.get('/search', (req, res) => {
 })
 // -------------Post request for insert user--------------------
 
-router.post('/addUser',async (req,res)=>{
+router.post('/getBlogs',async (req,res)=>{
+    console.log("Get blog try se phle")
     try {
-        // console.log("Data from postman",req.body);
-        const data = await User.addUser(req)
-        console.log("data:response)__", data);
+        console.log("Data from postman",req.body);
         res.send({
           "status":200,
-          "message":"User inserted successfuly",
-          "data": data
+          "message":"Success"
         })
-        return responseMessage(null, data)
+        // return responseMessage(null, data)
       } catch (err) {
         console.log("Error::index.js))", err);
         res.send({
           "status":400,
-          "message":"failed to insert user",
+          "message":"failed to get blogs",
           "data":err
         })
         return responseMessage(err, null)
       }
-})
-
-// -------------Post request for update user--------------------
-
-router.post('/updateUser',async (req,res)=>{
-  try {
-      // console.log("Data from postman",req.body);
-      const data = await User.updateUser(req)
-      console.log("data:response)__", data);
-      res.send({
-        "status":200,
-        "message":"User updated successfuly",
-        "data":data
-      })
-      return responseMessage(null, data)
-    } catch (err) {
-      console.log("Error::index.js))", err);
-      res.send({
-        "status":400,
-        "message":"failed to updated user",
-        "data":err
-      })
-      return responseMessage(err, null)
-    }
-})
-
-// -------------Post request for delete user--------------------
-
-router.post('/deleteUser',async (req,res)=>{
-  try {
-      // console.log("Data from postman",req.body);
-      const data = await User.deleteUser(req)
-      console.log("data:response)__", data);
-      res.send({
-        "status":200,
-        "message":"User deleted successfuly",
-        "data": data
-      })
-      return responseMessage(null, data)
-    } catch (err) {
-      console.log("Error::index.js))", err);
-      res.send({
-        "status":400,
-        "message":"failed to delete user",
-        "data":err
-      })
-      return responseMessage(err, null)
-    }
 })
 
 module.exports = router;
